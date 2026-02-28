@@ -12,36 +12,36 @@ The actual product interface. Task-focused, minimal chrome.
 `/settings` → `app/(dashboard)/settings/page.tsx`
 
 ## Dashboard Layout
-- [ ] Sidebar navigation (collapsible)
-- [ ] Logo (small)
-- [ ] New Project (+ button)
-- [ ] Recent Projects list with file type icons
-- [ ] Templates (E-commerce, Financial, Healthcare)
-- [ ] Trash
-- [ ] Settings
-- [ ] Top bar with search, notifications, profile dropdown
+- [x] Sidebar navigation (collapsible)
+- [x] Logo (small)
+- [x] New Project (+ button)
+- [x] Recent Projects list with file type icons
+- [x] Templates (E-commerce, Financial, Healthcare)
+- [x] Trash
+- [x] Settings
+- [x] Top bar with search, notifications, profile dropdown
 
 ## Workspace Page
-- [ ] Empty state: Large upload zone with floating format icons
-- [ ] Populated state: Project cards grid
-- [ ] Project card: thumbnail preview, name, last edited, status badge, quick actions
-- [ ] Status badges: Cleaned, Analyzed, Predicted
+- [x] Empty state: Large upload zone with floating format icons
+- [x] Populated state: Project cards grid
+- [x] Project card: thumbnail preview, name, last edited, status badge, quick actions
+- [x] Status badges: Cleaned, Analyzed, Predicted
 
 ## Analysis Studio (3-Panel Layout)
 ### Left Panel: Data Navigator (20% width)
-- [ ] File tree: Original files → Extracted tables → Cleaned datasets
-- [ ] Version history (git-style branching)
-- [ ] Metadata panel (row count, column types, quality score)
+- [x] File tree: Original files → Extracted tables → Cleaned datasets
+- [x] Version history (git-style branching)
+- [x] Metadata panel (row count, column types, quality score)
 
 ### Center Panel: Canvas (60% width)
-- [ ] Tab 1: Clean — Spreadsheet with issue highlighting (Red/Yellow/Blue)
-- [ ] Tab 2: Visualize — Drag-and-drop chart builder
-- [ ] Tab 3: Predict — Model configuration panel
+- [x] Tab 1: Clean — Spreadsheet with issue highlighting (Red/Yellow/Blue)
+- [x] Tab 2: Visualize — Drag-and-drop chart builder
+- [x] Tab 3: Predict — Model configuration panel
 
 ### Right Panel: Insights (20% width)
-- [ ] Auto-generated insights based on current view
-- [ ] "Ask a question" natural language input
-- [ ] Export options (PNG, PDF, PowerPoint, API code)
+- [x] Auto-generated insights based on current view
+- [x] "Ask a question" natural language input
+- [x] Export options (PNG, PDF, PowerPoint, API code)
 
 ## Project Settings
 - [ ] General (rename, description)

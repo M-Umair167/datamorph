@@ -8,23 +8,23 @@ Frictionless onboarding. Multiple auth methods.
 `/signup` → `app/(auth)/signup/page.tsx`
 
 ## Login Page
-- [ ] Split screen layout (Left: product art/animation, Right: form)
-- [ ] Social login buttons (Google, Microsoft, GitHub)
+- [x] Split screen layout (Left: product art/animation, Right: form)
+- [x] Social login buttons (Google, Microsoft, GitHub)
 - [ ] Email magic link option (passwordless)
-- [ ] Traditional email/password login
-- [ ] "Enterprise SSO" link
+- [x] Traditional email/password login
+- [x] "Enterprise SSO" link
 - [ ] Remember me checkbox
-- [ ] Forgot password link
-- [ ] "Don't have an account? Sign up" link
+- [x] Forgot password link
+- [x] "Don't have an account? Sign up" link
 
 ## Signup Page
-- [ ] Same split screen layout
-- [ ] Social signup buttons (Google, Microsoft, GitHub)
-- [ ] Email + password form with validation
-- [ ] Full name field
-- [ ] Password strength indicator
-- [ ] Terms of service checkbox
-- [ ] "Already have an account? Sign in" link
+- [x] Same split screen layout
+- [x] Social signup buttons (Google, Microsoft, GitHub)
+- [x] Email + password form with validation
+- [x] Full name field
+- [x] Password strength indicator
+- [x] Terms of service checkbox
+- [x] "Already have an account? Sign in" link
 
 ## Onboarding Wizard (3 Steps)
 - [ ] Step 1: "What's your role?" (selects default templates)
