@@ -1,17 +1,29 @@
 # DataMorph — Project Progress Tracker
 
 > **Last updated:** Feb 28, 2026
-> **Status:** All frontend pages built. Backend not started.
+> **Status:** Frontend complete. Backend API built and verified (20 endpoints, server running).
 
 ---
 
 ## Quick Start
 
 ```bash
+# Frontend
 cd web
 npm install
 npm run dev        # → http://localhost:3000
 npm run build      # production build (verified, 0 errors)
+
+# Backend
+cd backend
+python -m venv venv
+.\venv\Scripts\activate         # Windows
+pip install -r requirements.txt
+uvicorn app.main:app --port 8000  # → http://localhost:8000
+# Docs: http://localhost:8000/docs
+
+# Full stack (Docker)
+docker-compose up --build       # Starts all services
 ```
 
 ---
@@ -28,6 +40,13 @@ npm run build      # production build (verified, 0 errors)
 | Utilities   | clsx + tailwind-merge (`cn()` helper)             |
 | Fonts       | Inter (sans) + JetBrains Mono (mono) via next/font |
 | React       | 19.2.3                                            |
+| Backend     | FastAPI 0.115.0 (Python 3.12)                     |
+| Database    | PostgreSQL 15 + async SQLAlchemy 2.0.36           |
+| Migrations  | Alembic 1.14.0                                    |
+| Auth        | JWT (python-jose) + bcrypt (passlib)              |
+| Storage     | S3/MinIO (boto3)                                  |
+| Queue       | Celery 5.4 + Redis 7                              |
+| Data        | pandas 2.2.3                                      |
 
 ### Important: Tailwind v4
 
@@ -244,17 +263,46 @@ export function cn(...inputs: ClassValue[]) {
 
 ## Not Started Yet (🔲)
 
-### Backend (see `backend.md` for full spec)
-- [ ] API server setup (framework TBD per spec)
-- [ ] Authentication system (JWT, OAuth providers)
-- [ ] File upload & processing pipeline
-- [ ] Data ingestion engine (CSV, PDF, images)
-- [ ] AI/ML cleaning pipeline
-- [ ] Visualization data API
-- [ ] Prediction model training & serving
-- [ ] Database schema & migrations
-- [ ] WebSocket for real-time processing status
-- [ ] Rate limiting, CORS, security middleware
+### Backend — Completed ✅
+- [x] FastAPI server setup with CORS, exception handlers, health check
+- [x] Authentication system (JWT signup/login/refresh/me)
+- [x] File upload & processing pipeline (S3 storage, format detection)
+- [x] Data ingestion engine (CSV, PDF, images — Celery extraction task)
+- [x] Cleaning pipeline (cleaning operations API + Celery task)
+- [x] Visualization API (chart creation from datasets)
+- [x] Prediction model training & serving (Celery ML task)
+- [x] Database schema (8 SQLAlchemy models) & Alembic migrations setup
+- [x] Export API (presigned S3 download URLs)
+- [x] Docker Compose (frontend, backend, worker, Postgres, Redis, MinIO)
+- [x] Custom exception handlers (404, 403, 400, 401, 409, 413)
+
+### Backend API Endpoints (20 total)
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/health` | GET | Health check |
+| `/api/v1/auth/signup` | POST | User registration |
+| `/api/v1/auth/login` | POST | JWT login |
+| `/api/v1/auth/refresh` | POST | Token refresh |
+| `/api/v1/auth/me` | GET | Current user profile |
+| `/api/v1/projects/` | POST | Create project |
+| `/api/v1/projects/` | GET | List projects |
+| `/api/v1/projects/{id}` | GET | Project detail |
+| `/api/v1/projects/{id}` | PATCH | Update project |
+| `/api/v1/projects/{id}` | DELETE | Delete project |
+| `/api/v1/uploads/` | POST | Upload file |
+| `/api/v1/uploads/{id}/progress` | GET | Upload progress |
+| `/api/v1/uploads/{id}` | GET | File info |
+| `/api/v1/uploads/project/{id}` | GET | List files |
+| `/api/v1/uploads/{id}` | DELETE | Delete file |
+| `/api/v1/datasets/project/{id}` | GET | List datasets |
+| `/api/v1/datasets/{id}` | GET | Dataset details |
+| `/api/v1/datasets/{id}/preview` | GET | Data preview |
+| `/api/v1/datasets/{id}/clean` | POST | Clean data |
+| `/api/v1/datasets/{id}/visualize` | POST | Create chart |
+| `/api/v1/predictions/dataset/{id}` | POST | Start prediction |
+| `/api/v1/predictions/{id}` | GET | Prediction result |
+| `/api/v1/predictions/project/{id}` | GET | List predictions |
+| `/api/v1/exports/dataset/{id}` | GET | Download export |
 
 ### Frontend — Not Yet Functional
 - [ ] Wire auth pages to real backend (currently static forms)
