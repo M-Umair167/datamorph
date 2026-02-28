@@ -318,7 +318,7 @@ export default async function IndustryPage({
 
           <div className="mt-10">
             <Link
-              href="/signup"
+              href="/workspace"
               className="inline-flex px-8 py-3 bg-primary hover:bg-primary-hover text-white font-medium rounded-full transition-colors"
             >
               Start Free Trial

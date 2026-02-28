@@ -1,117 +1,44 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Clock, TrendingUp, Star } from "lucide-react";
-
-function AnimatedCounter({
-  end,
-  suffix = "",
-  duration = 2,
-}: {
-  end: number;
-  suffix?: string;
-  duration?: number;
-}) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const step = end / (duration * 60);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start * 10) / 10);
-      }
-    }, 1000 / 60);
-    return () => clearInterval(timer);
-  }, [inView, end, duration]);
-
-  return (
-    <div ref={ref} className="text-4xl md:text-5xl font-bold gradient-text">
-      {count.toLocaleString()}
-      {suffix}
-    </div>
-  );
-}
 
 const metrics = [
-  {
-    icon: Clock,
-    value: 2.3,
-    suffix: "M",
-    label: "Hours Saved",
-    sublabel: "Calculated from user data",
-  },
-  {
-    icon: TrendingUp,
-    value: 847,
-    suffix: "%",
-    label: "ROI Average",
-    sublabel: "Based on time savings",
-  },
-  {
-    icon: Star,
-    value: 4.9,
-    suffix: "/5",
-    label: "Extraction Accuracy",
-    sublabel: "User-rated quality score",
-  },
+  { value: "10K+", label: "Active Users", sub: "across 40+ countries" },
+  { value: "4.9/5", label: "User Rating", sub: "from 2,400+ reviews" },
+  { value: "500M+", label: "Rows Processed", sub: "and counting daily" },
 ];
 
 export function SocialProof() {
   return (
-    <section className="py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative py-24">
+      <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Results That <span className="gradient-text">Speak</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Trusted by <span className="gradient-text">thousands</span>
           </h2>
-          <p className="text-text-secondary text-lg">
-            Numbers don&apos;t lie. Impact that scales.
+          <p className="text-text-secondary max-w-lg mx-auto">
+            Teams worldwide rely on DataMorph to process their most critical data.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {metrics.map((metric, i) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {metrics.map((m, i) => (
             <motion.div
-              key={metric.label}
-              initial={{ opacity: 0, y: 30 }}
+              key={m.label}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="text-center p-8 rounded-2xl border border-border bg-surface/30 hover:bg-surface/50 transition-colors"
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="rounded-xl border border-border bg-surface/50 p-8 text-center"
             >
-              <div className="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                <metric.icon className="w-7 h-7 text-primary" />
-              </div>
-              <AnimatedCounter end={metric.value} suffix={metric.suffix} />
-              <p className="text-lg font-semibold text-text-primary mt-3">
-                {metric.label}
-              </p>
-              <p className="text-sm text-text-muted mt-1">{metric.sublabel}</p>
+              <p className="text-4xl font-bold text-text-primary mb-1">{m.value}</p>
+              <p className="text-sm font-medium text-text-secondary mb-0.5">{m.label}</p>
+              <p className="text-xs text-text-muted">{m.sub}</p>
             </motion.div>
           ))}
         </div>

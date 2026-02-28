@@ -1,132 +1,126 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
-import { Upload, Play, FileSpreadsheet, FileText, Image } from "lucide-react";
+import { Upload, FileSpreadsheet, FileText, Image, ArrowRight } from "lucide-react";
+import { useRef, useState } from "react";
+
+const fileFormats = [
+  { icon: FileSpreadsheet, label: "CSV" },
+  { icon: FileText, label: "PDF" },
+  { icon: Image, label: "Images" },
+];
 
 export function HeroSection() {
+  const uploadRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleFileSelect = () => uploadRef.current?.click();
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    window.location.href = "/workspace";
+  };
+  const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
+  const handleDragLeave = () => setIsDragging(false);
+  const handleDrop = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(false); window.location.href = "/workspace"; };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1a0533] via-bg-dark to-[#0c1445]" />
+    <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-bg-dark" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_50%_-10%,rgba(99,102,241,0.12),transparent)]" />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.8, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-[128px]" />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-20 pb-16">
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-sm text-primary mb-8"
-        >
-          <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
-          Now with AI-powered predictions
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.08] mb-6"
         >
           Drop anything.
           <br />
           <span className="gradient-text">Know everything.</span>
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-base md:text-lg text-text-secondary max-w-xl mx-auto mb-10 leading-relaxed"
         >
           CSV, PDF, or a photo of your spreadsheet — our AI extracts, cleans,
-          and predicts in 30 seconds.
+          and predicts in <span className="text-text-primary font-medium">30 seconds</span>.
         </motion.p>
 
         {/* Upload Zone */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-xl mx-auto mb-8"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="max-w-lg mx-auto mb-10"
         >
-          <div className="border-2 border-dashed border-primary/40 rounded-2xl p-10 bg-surface/40 backdrop-blur-sm hover:border-primary/70 transition-colors duration-300 cursor-pointer group">
-            <div className="flex justify-center gap-4 mb-6">
-              <motion.div
-                whileHover={{ y: -4 }}
-                className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center"
-              >
-                <FileSpreadsheet className="w-6 h-6 text-success" />
-              </motion.div>
-              <motion.div
-                whileHover={{ y: -4 }}
-                className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center"
-              >
-                <FileText className="w-6 h-6 text-error" />
-              </motion.div>
-              <motion.div
-                whileHover={{ y: -4 }}
-                className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center"
-              >
-                <Image className="w-6 h-6 text-primary" />
-              </motion.div>
+          <input
+            ref={uploadRef}
+            type="file"
+            accept=".csv,.xlsx,.xls,.pdf,.png,.jpg,.jpeg,.gif,.bmp,.tiff"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <div
+            onClick={handleFileSelect}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            className={`rounded-xl p-8 cursor-pointer transition-all duration-200 ${
+              isDragging
+                ? "border-2 border-primary bg-primary/5"
+                : "border border-border bg-surface/50 hover:border-border-light"
+            }`}
+          >
+            <div className="flex justify-center gap-6 mb-5">
+              {fileFormats.map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-1.5">
+                  <Icon className="w-5 h-5 text-text-muted" />
+                  <span className="text-[11px] text-text-muted">{label}</span>
+                </div>
+              ))}
             </div>
-            <p className="text-text-primary font-semibold text-lg mb-1">
-              Drop your file here
+            <p className="text-text-primary font-medium mb-1">
+              {isDragging ? "Release to upload" : "Drop your file here"}
             </p>
-            <p className="text-text-secondary text-sm mb-4">
-              CSV, Excel, PDF, or images up to 100MB
-            </p>
-            <button className="px-6 py-2.5 bg-primary hover:bg-primary-hover text-white text-sm font-medium rounded-full transition-colors duration-200 group-hover:shadow-lg group-hover:shadow-primary/25">
-              <Upload className="w-4 h-4 inline mr-2" />
+            <p className="text-text-muted text-sm mb-4">CSV, Excel, PDF, or images up to 100MB</p>
+            <button
+              onClick={(e) => { e.stopPropagation(); handleFileSelect(); }}
+              className="px-5 py-2 bg-primary hover:bg-primary-hover text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              <Upload className="w-3.5 h-3.5 inline mr-1.5 -mt-0.5" />
               Browse Files
             </button>
           </div>
         </motion.div>
 
-        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex items-center justify-center gap-4"
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <button className="px-8 py-3 bg-primary hover:bg-primary-hover text-white font-medium rounded-full transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-primary/40">
-            Try Free Demo
-          </button>
-          <button className="px-8 py-3 text-text-secondary hover:text-text-primary font-medium rounded-full border border-border hover:border-text-muted transition-all duration-200 flex items-center gap-2">
-            <Play className="w-4 h-4" />
-            Watch 2-Min Video
-          </button>
+          <a
+            href="/workspace"
+            className="inline-flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary-hover text-white text-sm font-medium rounded-lg transition-colors"
+          >
+            Get Started Free
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-8 text-xs text-text-muted"
+        >
+          No credit card required &bull; Free forever for small datasets &bull; GDPR compliant
+        </motion.p>
       </div>
     </section>
   );

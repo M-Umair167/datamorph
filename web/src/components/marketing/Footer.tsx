@@ -1,64 +1,76 @@
+﻿"use client";
+
 import Link from "next/link";
 
-const footerLinks = {
-  Product: [
-    { label: "Features", href: "/product" },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Use Cases", href: "/use-cases" },
-    { label: "Security", href: "/product#security" },
-  ],
-  Company: [
-    { label: "About", href: "/about" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "/about#careers" },
-    { label: "Contact", href: "#" },
-  ],
-  Resources: [
-    { label: "Documentation", href: "#" },
-    { label: "API Reference", href: "#" },
-    { label: "Community", href: "#" },
-    { label: "Status", href: "#" },
-  ],
-  Legal: [
-    { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
-    { label: "Cookie Policy", href: "#" },
-    { label: "DPA", href: "#" },
-  ],
-};
+const columns = [
+  {
+    title: "Product",
+    links: [
+      { label: "Features", href: "#" },
+      { label: "Pricing", href: "#" },
+      { label: "API", href: "#" },
+      { label: "Integrations", href: "#" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "#" },
+      { label: "Blog", href: "#" },
+      { label: "Careers", href: "#" },
+      { label: "Contact", href: "#" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Documentation", href: "#" },
+      { label: "Tutorials", href: "#" },
+      { label: "Changelog", href: "#" },
+      { label: "Status", href: "#" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy", href: "#" },
+      { label: "Terms", href: "#" },
+      { label: "Security", href: "#" },
+    ],
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-bg-dark">
-      <div className="max-w-7xl mx-auto px-6 py-16">
+    <footer className="border-t border-border">
+      <div className="max-w-5xl mx-auto px-6 py-14">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <span className="text-white font-bold text-sm">D</span>
+            <Link href="/" className="flex items-center gap-2 mb-3">
+              <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center">
+                <span className="text-white text-xs font-bold">D</span>
               </div>
-              <span className="text-lg font-bold text-text-primary">
-                DataMorph
-              </span>
+              <span className="text-sm font-semibold text-text-primary">DataMorph</span>
             </Link>
-            <p className="text-sm text-text-secondary leading-relaxed">
-              One upload box. Zero format decisions. Infinite possibilities.
+            <p className="text-xs text-text-muted leading-relaxed">
+              Universal data interpreter.
+              <br />
+              Drop anything. Know everything.
             </p>
           </div>
 
-          {/* Link groups */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h3 className="text-sm font-semibold text-text-primary mb-4">
-                {category}
-              </h3>
+          {columns.map((col) => (
+            <div key={col.title}>
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-3">
+                {col.title}
+              </p>
               <ul className="space-y-2">
-                {links.map((link) => (
+                {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+                      className="text-xs text-text-muted hover:text-text-secondary transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -69,17 +81,13 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-text-muted">
+        <div className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-text-muted">
             &copy; {new Date().getFullYear()} DataMorph. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <span className="text-xs text-text-muted">SOC 2</span>
-            <span className="text-xs text-text-muted">GDPR</span>
-            <span className="text-xs text-text-muted">HIPAA</span>
-            <span className="text-xs text-text-muted">ISO 27001</span>
-          </div>
+          <p className="text-xs text-text-muted">
+            Built with AI &bull; GDPR &amp; SOC 2 compliant
+          </p>
         </div>
       </div>
     </footer>
